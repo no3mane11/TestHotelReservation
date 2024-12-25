@@ -1,0 +1,21 @@
+﻿@model TestHotelReservation.Models.Chambre
+
+<h2>Confirmation de réservation</h2>
+
+@if (Model != null)
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Numéro de Chambre: @Model.NumeroChambre</h5>
+
+            <!-- Vérification si TypeChambre est null avant d'accéder à ses propriétés -->
+            <p class="card-text">Type de Chambre: @(Model.TypeChambre != null ? Model.TypeChambre.Nom : "Non spécifié")</p>
+
+            <p class="card-text">Réservée avec succès !</p>
+        </div>
+    </div>
+}
+else
+{
+    <p>Erreur: Chambre non trouvée.</p>
+}

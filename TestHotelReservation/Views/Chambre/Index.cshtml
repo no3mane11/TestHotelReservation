@@ -1,0 +1,36 @@
+﻿@model IEnumerable<TestHotelReservation.Models.Chambre>
+
+<h2>Chambres disponibles et non disponibles</h2>
+
+<div class="row">
+    @foreach (var chambre in Model)
+    {
+        <div class="col-md-4">
+            <div class="card">
+                <!-- Affichage de l'image avec le chemin relatif -->
+                <img class="card-img-top" src="@Url.Content("~/images/" + chambre.ImageChambre)" alt="Image de la chambre">
+                <div class="card-body">
+                    <h5 class="card-title">Numéro de Chambre: @chambre.NumeroChambre</h5>
+                    <p class="card-text">
+                        Type: @(chambre.TypeChambre != null && !string.IsNullOrWhiteSpace(chambre.TypeChambre.Description) ? chambre.TypeChambre.Description : "Non spécifié")
+                    </p>
+
+                    <p class="card-text">Disponible: @(chambre.EstDisponible == true ? "Oui" : "Non")</p>
+
+                    <!-- Affichage des chambres disponibles et non disponibles -->
+                    @if (chambre.EstDisponible == true)
+                    {
+                        <form action="@Url.Action("Reserver", "Chambre")" method="post">
+                            <input type="hidden" name="chambreId" value="@chambre.ChambreId" />
+                            <button type="submit" class="btn btn-primary">Réserver</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <p class="text-danger">Cette chambre n'est plus disponible</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
